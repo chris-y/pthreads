@@ -1,5 +1,5 @@
-CC = gcc
-AR = ar
+CC ?= gcc
+AR ?= ar
 DEBUG = 1
 OSTYPE = $(shell uname -s)
 
@@ -21,8 +21,6 @@ else
 M68K = $(shell which m68k-amigaos-gcc 2>/dev/null)
 ifneq ($(M68K),)
 CFLAGS = -Os -fomit-frame-pointer -noixemul -isystem .
-CC = m68k-amigaos-gcc
-AR = m68k-amigaos-ar 
 endif
 endif
 endif
