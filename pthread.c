@@ -238,7 +238,7 @@ static BOOL OpenTimerDevice(struct IORequest *io, struct MsgPort *mp, struct Tas
 	io->io_Message.mn_Length = sizeof(struct timerequest);
 
 	// open timer.device
-#if defined(__AMIGA__) && !defined(__MORPHOS__)
+#if 0 //defined(__AMIGA__) && !defined(__MORPHOS__)
 	io->io_Device = DOSBase->dl_TimeReq->tr_node.io_Device;
 	io->io_Unit = DOSBase->dl_TimeReq->tr_node.io_Unit;
 	io->io_Error = 0;
@@ -557,7 +557,8 @@ static int _obtain_sema_timed(struct SignalSemaphore *sema, const struct timespe
 		// absolute time has to be converted to relative
 		// GetSysTime can't be used due to the timezone offset in abstime
 		gettimeofday(&starttime, NULL);
-		timersub(&timerio.tr_time, &starttime, &timerio.tr_time);
+		struct Library *TimerBase = (struct Library *)timerio.tr_node.io_Device;
+		SubTime(&timerio.tr_time, &starttime);
 		if (!timerisset(&timerio.tr_time))
 		{
 			CloseTimerDevice((struct IORequest *)&timerio);
