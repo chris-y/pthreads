@@ -2107,14 +2107,8 @@ void __pthread_Exit_Func(void)
 ADD2INIT(__pthread_Init_Func, 0);
 ADD2EXIT(__pthread_Exit_Func, 0);
 #elif defined(__AMIGA__)
-int _init(void) {
-	__pthread_Init_Func();
-}
-
-void _fini(void) {
-	__pthread_Init_Func();
-}
-
+void __attribute__((constructor)) __pthread_Init_Func();
+void __attribute__((destructor)) __pthread_Init_Func();
 #else
 static CONSTRUCTOR_P(__pthread_Init_Func, 100)
 {
