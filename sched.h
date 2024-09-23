@@ -23,12 +23,16 @@
 
 #include <time.h>
 
-#ifndef __AMIGA__
+struct timespec
+{
+        time_t tv_sec;
+        long int tv_nsec;
+};
+
 struct sched_param
 {
 	int sched_priority;
 };
-#endif
 
 #define SCHED_NORMAL	0
 #define SCHED_OTHER		0
