@@ -50,7 +50,7 @@
 
 #if defined(__AMIGA__) && !defined(__MORPHOS__)
 #include <exec/execbase.h>
-#include <inline/alib.h>
+#include <clib/alib_protos.h>
 #define NEWLIST(a) NewList(a)
 
 #include <stabs.h>
