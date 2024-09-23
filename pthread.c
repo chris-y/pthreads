@@ -784,7 +784,8 @@ static int _pthread_cond_timedwait(pthread_cond_t *cond, pthread_mutex_t *mutex,
 			// absolute time has to be converted to relative
 			// GetSysTime can't be used due to the timezone offset in abstime
 			gettimeofday(&starttime, NULL);
-			timersub(&timerio.tr_time, &starttime, &timerio.tr_time);
+			struct Library *TimerBase = (struct Library *)timerio.tr_node.io_Device;
+			SubTime(&timerio.tr_time, &starttime);
 			if (!timerisset(&timerio.tr_time))
 			{
 				CloseTimerDevice((struct IORequest *)&timerio);
