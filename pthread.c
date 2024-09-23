@@ -53,7 +53,7 @@
 #include <clib/alib_protos.h>
 #define NEWLIST(a) NewList(a)
 
-#include <stabs.h>
+//#include <stabs.h>
 
 #ifndef IPTR
 #define IPTR ULONG
@@ -2062,7 +2062,7 @@ int pthread_kill(pthread_t thread, int sig)
 // Constructors, destructors
 //
 
-int __pthread_Init_Func(void)
+int __attribute__((constructor)) __pthread_Init_Func(void)
 {
 	DB2(bug("%s()\n", __FUNCTION__));
 
@@ -2079,7 +2079,7 @@ int __pthread_Init_Func(void)
 	return TRUE;
 }
 
-void __pthread_Exit_Func(void)
+void __attribute__((destructor)) __pthread_Exit_Func(void)
 {
 	pthread_t i;
 	ThreadInfo *inf;
@@ -2107,10 +2107,7 @@ void __pthread_Exit_Func(void)
 #if defined(__AROS__)
 ADD2INIT(__pthread_Init_Func, 0);
 ADD2EXIT(__pthread_Exit_Func, 0);
-#elif defined(__AMIGA__)
-void __attribute__((constructor)) __pthread_Init_Func();
-void __attribute__((destructor)) __pthread_Init_Func();
-#else
+#elif defined(__MORPHOS__)
 static CONSTRUCTOR_P(__pthread_Init_Func, 100)
 {
 	return !__pthread_Init_Func();
