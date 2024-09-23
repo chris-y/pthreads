@@ -2103,9 +2103,18 @@ void __pthread_Exit_Func(void)
 	}
 }
 
-#if defined(__AROS__) || (defined(__AMIGA__) && !defined(__MORPHOS__))
+#if defined(__AROS__)
 ADD2INIT(__pthread_Init_Func, 0);
 ADD2EXIT(__pthread_Exit_Func, 0);
+#elif defined(__AMIGA__)
+int _init(void) {
+	__pthread_Init_Func();
+}
+
+void _fini(void) {
+	__pthread_Init_Func();
+}
+
 #else
 static CONSTRUCTOR_P(__pthread_Init_Func, 100)
 {
