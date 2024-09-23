@@ -260,7 +260,7 @@ static void CloseTimerDevice(struct IORequest *io)
 		WaitIO(io);
 	}
 
-#if defined(__AMIGA__) && !defined(__MORPHOS__)
+#if 0
 	io->io_Device = (struct Device *)-1;
 #else
 	if (io->io_Device != NULL)
