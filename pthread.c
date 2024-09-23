@@ -29,6 +29,7 @@
 #include <proto/timer.h>
 #ifdef __AROS__
 #include <aros/symbolsets.h>
+#elif defined(__AMIGA__)
 #define	TIMESPEC_TO_TIMEVAL(tv, ts) {	\
 	(tv)->tv_sec = (ts)->tv_sec;		\
 	(tv)->tv_usec = (ts)->tv_nsec / 1000; }
