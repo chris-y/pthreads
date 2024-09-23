@@ -1,6 +1,6 @@
 CC ?= gcc
 AR ?= ar
-DEBUG = 1
+DEBUG = 0
 OSTYPE = $(shell uname -s)
 
 CFLAGS = -Wall -I.
