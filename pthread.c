@@ -1646,7 +1646,7 @@ int pthread_detach(pthread_t thread)
 {
 	ThreadInfo *inf;
 
-	D(bug("%s(%u, %p)\n", __FUNCTION__, thread, value_ptr));
+	//D(bug("%s(%u, %p)\n", __FUNCTION__, thread, value_ptr));
 
 	inf = GetThreadInfo(thread);
 
